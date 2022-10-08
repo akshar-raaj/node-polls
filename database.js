@@ -7,28 +7,19 @@ const password = DATABASE.PASSWORD
 const host = DATABASE.HOST
 
 
-const getConnection = async () => {
+const getConnection = () => {
   const sequelize = new Sequelize(databaseName, user, password, {
     host: host,
     dialect: 'mysql'
   })
   try {
-    await sequelize.authenticate();
+    sequelize.authenticate();
     console.log('Connection has been established successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
   return sequelize
 }
-
-/*
-try {
-  await sequelize.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
-*/
 
 const connection = getConnection()
 
