@@ -1,7 +1,5 @@
 const {Model, DataTypes} = require('sequelize')
 const db = require('./../database')
-console.log(db)
-console.log(db.connection)
 
 class Question extends Model {}
 
@@ -14,4 +12,19 @@ Question.init({
   tableName: 'polls_question'
 })
 
-module.exports = {Question: Question}
+
+class Choice extends Model {}
+
+Choice.init({
+  id: {type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true},
+  choiceText: {type: DataTypes.STRING, allowNull: false},
+  votes: {type: DataTypes.INTEGER, allowNull: false}
+}, {
+  sequelize: db.connection,
+  tableName: 'polls_choice'
+})
+
+Question.hasMany(Choice, {foreignKey: 'questionId'})
+Choice.belongsTo(Question, {foreignKey: {name: 'questionId', allowNull: false}})
+
+module.exports = {Question: Question, Choice: Choice}
