@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {Question} = require('./models')
+const pug = require('pug')
 
 const pollsIndex = function (req, res) {
   res.send("Hello, world. You're at the polls index.")
@@ -13,7 +14,9 @@ const pollsDetail = async (req, res) => {
     res.sendStatus(404)
     return
   }
-  res.send(`You're looking at question ${pollId}. The question text is ${question.questionText}`)
+  const compiledFunction = pug.compileFile('./polls/templates/detail.pug')
+  const body = compiledFunction({question: question})
+  res.send(body)
 }
 
 router.get('/', pollsIndex)
