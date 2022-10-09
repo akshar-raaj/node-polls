@@ -3,8 +3,11 @@ const router = express.Router()
 const {Question} = require('./models')
 const pug = require('pug')
 
-const pollsIndex = function (req, res) {
-  res.send("Hello, world. You're at the polls index.")
+const pollsIndex = async function (req, res) {
+  const compiledFunction = pug.compileFile('./polls/templates/index.pug')
+  let questions = await Question.findAll({order: [['pubDate', 'ASC']], limit: 5})
+  const body = compiledFunction({questions: questions})
+  res.send(body)
 }
 
 const pollsDetail = async (req, res) => {

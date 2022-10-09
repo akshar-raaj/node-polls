@@ -1,0 +1,5 @@
+ul
+  each question in questions
+    li
+      - var url = '/polls/' + question.id + '/'
+      a(href=url) #{question.questionText}
