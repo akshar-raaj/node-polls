@@ -1,3 +1,4 @@
+"use strict"
 const {DATABASE} = require('./constants')
 const {Sequelize} = require('sequelize')
 

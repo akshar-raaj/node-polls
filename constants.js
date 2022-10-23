@@ -1,3 +1,4 @@
+"use strict"
 const DATABASE = {
   NAME: 'polls',
   USER: 'root',
