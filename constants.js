@@ -1,6 +1,14 @@
 "use strict"
 const dotenv = require('dotenv')
-dotenv.config()
+const environment = process.env.ENVIRONMENT
+if (environment === 'production') {
+  console.log('Using prod environment')
+  dotenv.config({path: '.env.prod'})
+}
+else {
+  console.log('Using dev/local environment')
+  dotenv.config()
+}
 const DATABASE = {
   NAME: process.env.DATABASE_NAME,
   USER: process.env.DATABASE_USER,
@@ -9,4 +17,8 @@ const DATABASE = {
   PORT: process.env.DATABASE_PORT
 }
 
-module.exports = {'DATABASE': DATABASE}
+const SERVER = {
+  PORT: process.env.SERVER_PORT || '3000'
+}
+
+module.exports = {'DATABASE': DATABASE, 'SERVER': SERVER}
