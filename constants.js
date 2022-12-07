@@ -4,7 +4,7 @@ const environment = process.env.ENVIRONMENT || 'local'
 
 if (environment === 'production') {
   console.log('Using prod environment')
-  dotenv.config({path: '.env.production'})
+  dotenv.config({path: '.env.prod'})
 }
 else if (environment === 'docker') {
   console.log('Using docker environment')
