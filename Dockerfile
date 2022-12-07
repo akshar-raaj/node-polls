@@ -8,4 +8,6 @@ RUN npm ci --only=production
 
 COPY . .
 
+ENV ENVIRONMENT docker
+
 CMD ["node", "server.js"]
