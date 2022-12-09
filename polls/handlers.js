@@ -14,6 +14,7 @@ const pollsDetail = async (req, res) => {
   console.log("polls_detail: %d", pollId)
   const question = await Question.findByPk(pollId)
   if (question === null) {
+    console.log("polls_detail_not_found: %d", pollId)
     res.sendStatus(404)
     return
   }
