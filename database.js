@@ -14,7 +14,8 @@ const host = DATABASE.HOST
 const getConnection = () => {
   const sequelize = new Sequelize(databaseName, user, password, {
     host: host,
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: false
   })
   try {
     sequelize.authenticate();
