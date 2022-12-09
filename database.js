@@ -2,6 +2,9 @@
 const {DATABASE} = require('./constants')
 const {Sequelize} = require('sequelize')
 
+const bunyan = require('bunyan')
+const log = bunyan.createLogger({'name': 'database'})
+
 const databaseName = DATABASE.NAME
 const user = DATABASE.USER
 const password = DATABASE.PASSWORD
@@ -15,9 +18,9 @@ const getConnection = () => {
   })
   try {
     sequelize.authenticate();
-    console.log('Connection has been established successfully.');
+    log.info('Connection has been established successfully.');
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    log.error('Unable to connect to the database:', error);
   }
   return sequelize
 }

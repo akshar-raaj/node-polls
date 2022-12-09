@@ -3,7 +3,9 @@ const app = require('./app')
 
 const {SERVER} = require('./constants')
 const port = SERVER.PORT
+const bunyan = require('bunyan')
+const log = bunyan.createLogger({'name': 'server'})
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  log.info(`Example app listening on port ${port}`)
 })

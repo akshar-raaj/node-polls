@@ -2,16 +2,19 @@
 const dotenv = require('dotenv')
 const environment = process.env.ENVIRONMENT || 'local'
 
+const bunyan = require('bunyan')
+const log = bunyan.createLogger({'name': 'constants'})
+
 if (environment === 'production') {
-  console.log('Using prod environment')
+  log.info('Using prod environment')
   dotenv.config({path: '.env.prod'})
 }
 else if (environment === 'docker') {
-  console.log('Using docker environment')
+  log.info('Using docker environment')
   dotenv.config({path: '.env.docker'})
 }
 else {
-  console.log('Using dev/local environment')
+  log.info('Using dev/local environment')
   dotenv.config()
 }
 
