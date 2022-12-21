@@ -8,7 +8,7 @@ const pollsList = async function (req, res) {
   {
     log.info({'event': 'read'})
     const questions = Question.findAll({order: [['pubDate', 'ASC']], limit: 5})
-    const data = (await questions).map(function(x){return {'id': x.id, 'questionText': x.questionText}})
+    const data = (await questions).map((x) => {return {'id': x.id, 'questionText': x.questionText}})
     res.send(JSON.stringify(data))
   }
   else {
