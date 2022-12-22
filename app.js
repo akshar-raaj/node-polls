@@ -6,6 +6,7 @@ const log = bunyan.createLogger({'name': 'app'})
 
 const polls = require('./polls/routes')
 const {homeHandler} = require('./handlers')
+const test = require('./test/routes')
 
 const app = express()
 
@@ -20,5 +21,6 @@ app.use(express.json())
 
 app.get('/', homeHandler)
 app.use('/polls', polls)
+app.use('/test', test)
 
 module.exports = app
