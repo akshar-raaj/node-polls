@@ -13,6 +13,7 @@ router.use((req, res, next) => {
     logger.info({event: 'test_request_done'})
 })
 
-router.all('/', testHandlers.handler)
+router.all('/sync', testHandlers.syncHandler)
+router.all('/async', testHandlers.handler)
 
 module.exports = router
