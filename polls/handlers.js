@@ -4,13 +4,15 @@ const pug = require('pug')
 const bunyan = require('bunyan')
 const log = bunyan.createLogger({'name': 'polls.handlers'})
 
-const pollsIndex = async function (req, res) {
+const pollsIndex = function (req, res) {
   log.info({'event': 'polls_list'})
   const compiledFunction = pug.compileFile('./polls/templates/index.pug')
-  let questions = await Question.findAll({order: [['pubDate', 'ASC']], limit: 5})
-  const body = compiledFunction({questions: questions})
-  res.send(body)
-  log.info({'event': 'polls_list_success'})
+  let promise = Question.findAll({order: [['pubDate', 'ASC']], limit: 5})
+  promise.then((questions) => {
+    const body = compiledFunction({questions: questions})
+    res.send(body)
+    log.info({'event': 'polls_list_success'})
+  })
 }
 
 const pollsDetail = async (req, res) => {
