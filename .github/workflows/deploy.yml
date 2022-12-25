@@ -1,0 +1,24 @@
+name: Production deployment
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.HOST_USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/express-polls
+            git checkout — *
+            git checkout main
+            git pull origin main
+            sudo docker build . -t express-polls
+            sudo docker rm -f express-polls
+            sudo docker run --name express-polls -p 80:80 -d express-polls
