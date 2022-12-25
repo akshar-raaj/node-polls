@@ -18,16 +18,18 @@ const pollsIndex = function (req, res) {
 const pollsDetail = async (req, res) => {
   const pollId = req.params.pollId
   logger.info({'event': 'polls_detail', 'identifier': pollId})
-  const question = await Question.findByPk(pollId)
-  if (question === null) {
-    logger.info({'event': 'polls_detail_not_found', 'identifier': pollId})
-    res.sendStatus(404)
-    return
-  }
-  const compiledFunction = pug.compileFile('./polls/templates/detail.pug')
-  const body = compiledFunction({question: question})
-  res.send(body)
-  logger.info({'event': 'polls_detail_success', 'identifier': pollId})
+  let promise = Question.findByPk(pollId)
+  promise.then((question) => {
+    if (question === null) {
+      logger.info({'event': 'polls_detail_not_found', 'identifier': pollId})
+      res.sendStatus(404)
+      return
+    }
+    const compiledFunction = pug.compileFile('./polls/templates/detail.pug')
+    const body = compiledFunction({question: question})
+    res.send(body)
+    logger.info({'event': 'polls_detail_success', 'identifier': pollId})
+  })
 }
 
 module.exports = {
