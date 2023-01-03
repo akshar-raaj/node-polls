@@ -3,7 +3,7 @@ const {Question} = require('./models')
 const bunyan = require('bunyan')
 const logger = bunyan.createLogger({'name': 'polls.api'})
 
-const pollsList = function (req, res) {
+const pollsList = function (req, res, next) {
   if(req.method === 'GET')
   {
     logger.info({'event': 'read'})
@@ -26,7 +26,7 @@ const pollsList = function (req, res) {
     }
     const error = function (error) {
       logger.info({'event': 'create_error'}, error.message)
-      res.status(500).send('error')
+      res.status(400).json({message: error.message})
     }
     promise.then(success, error)
   }
