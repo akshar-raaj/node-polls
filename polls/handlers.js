@@ -15,7 +15,7 @@ const pollsIndex = function (req, res) {
   })
 }
 
-const pollsDetail = async (req, res) => {
+const pollsDetail = (req, res) => {
   const pollId = req.params.pollId
   logger.info({'event': 'polls_detail', 'identifier': pollId})
   let promise = Question.findByPk(pollId)
