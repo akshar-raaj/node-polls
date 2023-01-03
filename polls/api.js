@@ -10,7 +10,7 @@ const pollsList = function (req, res) {
     const promise = Question.findAll({order: [['pubDate', 'ASC']], limit: 5})
     promise.then((questions) => {
       const data = questions.map((x) => {return {'id': x.id, 'questionText': x.questionText}})
-      res.send(JSON.stringify(data))
+      res.json(data)
     })
   }
   else {
@@ -22,11 +22,11 @@ const pollsList = function (req, res) {
       const data = {
         'id': question.id
       }
-      res.send(JSON.stringify(data))
+      res.status(201).json(data)
     }
     const error = function (error) {
       logger.info({'event': 'create_error'}, error.message)
-      res.send('error')
+      res.status(500).send('error')
     }
     promise.then(success, error)
   }
