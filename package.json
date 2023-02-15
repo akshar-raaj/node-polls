@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "jest": "^29.1.2",
+    "jslint": "^0.12.1",
     "supertest": "^6.3.0"
   }
 }
