@@ -37,3 +37,23 @@ If running with Docker, execute the following command
   $ docker run --name express-polls -p 3000:3000 express-polls
 
 This assumes that image `express-polls` exists. Also, this assumes that file `.env.docker` is populated with appropriate database credentials.
+
+## TODO
+
+### Application
+- API to add questions
+- API to add choices for a question
+- API to view question
+- API to view choices for a question
+
+- Mongo integration
+- Redis integration
+- S3 integration
+
+### Infra
+- API Gateway
+  - Number of requests
+  - Check number of requests on each endpoint
+  - Play with headers
+- Cloudwatch
+  - Check application logs
